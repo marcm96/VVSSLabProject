@@ -36,6 +36,15 @@ public class TestLaboratoriesController {
 
     @Test
     public void testPassedStudents() throws IOException, ParseException {
+        Student student = new Student("aaaa1112", "Test Student2", 111);
+        laboratoriesController.saveStudent(student);
+        Laboratory laboratory = new Laboratory(3, "22/12/2222", 2, "aaaa1112");
+        laboratoriesController.saveLaboratory(laboratory);
+        String student2 = "aaaa1112";
+        String labNumber = "3";
+        float grade = 4;
+        laboratoriesController.addGrade(student2, labNumber, grade);
+
         int length = laboratoriesController.passedStudents().size();
 
         assertTrue(length == 1);
