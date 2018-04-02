@@ -7,15 +7,57 @@ import java.io.IOException;
 import java.text.ParseException;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class TestLaboratoriesController {
     LaboratoriesController laboratoriesController = new LaboratoriesController("students.txt", "laboratories.txt");
 
     @Test
     public void testSaveStudent(){
+        //EC 1 9 13
         Student student = new Student("aaaa1111", "Test Student", 111);
-
         assertTrue(laboratoriesController.saveStudent(student));
+
+        //EC 4
+        student.setRegNumber("aaa1111");
+        assertFalse(laboratoriesController.saveStudent(student));
+
+        //EC 5
+        student.setRegNumber("aaaa111");
+        assertFalse(laboratoriesController.saveStudent(student));
+
+        //EC 6
+        student.setRegNumber("1111aaaa");
+        assertFalse(laboratoriesController.saveStudent(student));
+
+        //EC 7
+        student.setRegNumber("aaaaaa1111");
+        assertFalse(laboratoriesController.saveStudent(student));
+
+        //EC 8
+        student.setRegNumber("aaaa11111");
+        assertFalse(laboratoriesController.saveStudent(student));
+
+        //EC 10
+        student.setGroup(1001);
+        assertFalse(laboratoriesController.saveStudent(student));
+
+        //EC 11
+        student.setGroup(-1);
+        assertFalse(laboratoriesController.saveStudent(student));
+
+        //EC 14
+        student.setName("a aa aaa");
+        assertFalse(laboratoriesController.saveStudent(student));
+
+        //EC 15
+        student.setName(".,.,.,';");
+        assertFalse(laboratoriesController.saveStudent(student));
+
+        //EC 16
+        student.setName("123 123");
+        assertFalse(laboratoriesController.saveStudent(student));
+
     }
 
     @Test
