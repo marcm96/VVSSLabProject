@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -61,10 +63,41 @@ public class TestLaboratoriesController {
     }
 
     @Test
-    public void testSaveLaboratory() throws ParseException {
-        Laboratory laboratory = new Laboratory(2, "22/12/2222", 2, "aaaa1111");
+    public void testSaveLaboratory() {
 
-        assertTrue(laboratoriesController.saveLaboratory(laboratory));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2010, Calendar.JANUARY, 13);
+        Date dateInThePast = calendar.getTime();
+        calendar.set(2222, Calendar.JANUARY, 13);
+        Date dateInTheFuture = calendar.getTime();
+
+        try {
+            //TC1
+            Laboratory laboratory = new Laboratory(2, "22/12/2222", 2, "aaaa1111");
+            assertTrue(laboratoriesController.saveLaboratory(laboratory));
+
+            //TC2
+            laboratory.setNumber(-2);
+            assertFalse(laboratoriesController.saveLaboratory(laboratory));
+
+            //TC2
+            laboratory.setNumber(2);
+            laboratory.setProblemNumber(11);
+            assertFalse(laboratoriesController.saveLaboratory(laboratory));
+
+            //TC4
+            laboratory.setProblemNumber(2);
+            laboratory.setDate(dateInThePast);
+            assertFalse(laboratoriesController.saveLaboratory(laboratory));
+
+            //TC5
+            laboratory.setDate(dateInTheFuture);
+            laboratory.setProblemNumber(-10);
+            assertFalse(laboratoriesController.saveLaboratory(laboratory));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
