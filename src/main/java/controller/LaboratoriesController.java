@@ -43,6 +43,15 @@ public class LaboratoriesController {
         }
     }
 
+    public boolean saveLaboratoryWithoutGrade(Laboratory laboratory) {
+        if (Validator.validateLaboratory(laboratory)) {
+            this.laboratoryPersistence.saveLaboratory(laboratory);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean addGrade(String student, String labNumber, float grade)
             throws NumberFormatException, IOException, ParseException {
         if (Validator.validateGrade(grade)) {

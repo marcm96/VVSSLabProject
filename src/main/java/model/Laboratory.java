@@ -31,6 +31,13 @@ public class Laboratory {
         this.studentRegNumber = studentRegNumber;
     }
 
+    public Laboratory(int number, String date, int problemNumber) throws ParseException {
+        this.number = number;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        this.date = format.parse(date);
+        this.problemNumber = problemNumber;
+    }
+
     public int getNumber() {
         return number;
     }
